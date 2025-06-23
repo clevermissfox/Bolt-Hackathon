@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Desert Zen</title>
+    <link rel="icon" href="assets/images/qr.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Light Theme */
+            --primary: #E0DDD1;
+            --primary-light: #F0EEE5;
+            --primary-dark: #D4CEC4;
+            --secondary: #544F45;
+            --secondary-light: #655F52;
+            --secondary-dark: #2F2C2A;
+            --accent: #D85E58;
+            --accent-light: #E57B76;
+            --accent-dark: #B94C46;
+            --background: #E0DDD1;
+            --card: #E9E6DD;
+            --text: #2F2C2A;
+            --text-secondary: #655F52;
+            --text-tertiary: #878078;
+            --border: #D4CEC4;
+            --shadow: rgba(50, 46, 38, 0.1);
+            --neutral-0: #FFF;
+            --neutral-100: #E0DDD1;
+            --neutral-900: #2F2C2A;
+        }
+
+        [data-theme="dark"] {
+            --primary: #D85E58;
+            --primary-light: #E28783;
+            --primary-dark: #B94C46;
+            --secondary: #2F2C2A;
+            --secondary-light: #655F52;
+            --secondary-dark: #544F45;
+            --accent: #D85E58;
+            --accent-light: #E57B76;
+            --accent-dark: #B94C46;
+            --background: #2F2C2A;
+            --card: #605952;
+            --text: #F9F8F0;
+            --text-secondary: #E0DDD1;
+            --text-tertiary: #D4CEC4;
+            --border: #878078;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --neutral-0: #FFF;
+            --neutral-100: #E0DDD1;
+            --neutral-900: #2F2C2A;
+        }
+
+        body {
+            font-size: clamp(0.875rem, 0.6548rem + 1.2259vw, 1.125rem);
+            background: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 0.5em;
+            min-height: 100vh;
+            font-family: 'Karla', 'Roboto', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s, color 0.3s;
+
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 0.5rem 1rem;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s, color 0.3s;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .container {
+            display: grid;
+            gap: 1em;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 1.25rem;
+            box-shadow: 0 4px 24px var(--shadow);
+            padding: 2.5em 2em 2em 2em;
+            max-width: 400px;
+            width: 100%;
+            display: flex;
+            gap: 1em;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid var(--border);
+            transition: background-color-color 0.3s, color 0.3s;
+        }
+
+        .card h1 {
+            font-size: 2em;
+            font-family: 'Lora', serif;
+            margin: 0 0 0.5rem 0;
+            color: var(--text);
+            letter-spacing: 0.02em;
+            text-align: center;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            margin: 0;
+            text-align: center;
+        }
+
+        .qr-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5em;
+        }
+
+        .qr-section img {
+            width: 150px;
+            height: 150px;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+            background: var(--background);
+            padding: 0.5rem;
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 0.5em;
+            flex-wrap: wrap;
+        }
+
+        .links a {
+            color: var(--accent);
+            background-color: var(--neutral-100);
+            min-width: fit-content;
+            border-radius: 999px;
+            padding: 0.5rem 1.2rem;
+            font-size: 1rem;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            font-weight: 500;
+            transition: background-color-color 0.2s, color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .links a:hover {
+            background-color: var(--accent-light);
+            color: var(--neutral-100);
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 9/20;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 2px 8px var(--shadow);
+            border: 1px solid var(--border);
+            justify-self: center;
+
+        }
+
+        .thanks {
+            margin-block-start: 2em;
+        }
+
+        .built-with {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+            font-size: 0.95rem;
+            color: var(--text-tertiary);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .built-with img {
+            height: 24px;
+
+        }
+
+        .built-with a {
+            border-radius: 0.4rem;
+            background: var(--neutral-100);
+            padding: 0.2rem 0.4rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 4px var(--shadow);
+            color: var(--neutral-900);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .grid {
+            display: grid;
+        }
+
+        .gap-half {
+            gap: 0.5em;
+        }
+
+        .gap-quarter {
+            gap: 0.25em;
+        }
+
+        .ai-cen {
+            align-items: center;
+        }
+
+        .bold {
+            font-weight: 600;
+        }
+
+        @media (width > 680px) {
+            .container {
+                grid-template-columns: 1fr 0.5fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
+    <div class="container">
+
+        <div class="card">
+            <div class="card-content grid gap-half">
+
+                <h1>Desert Zen Meditations</h1>
+                <p>
+                    Desert Zen is for anyone in need of healing, hope, and a gentle
+                    reminder that even in the harshest environments, wellness is
+                    attainable.
+                </p>
+            </div>
+            <div class="qr-section">
+                <img src="assets/images/qr.svg" class="qr-code" alt="Download Desert Zen APK QR Code" />
+
+                <div style="font-size:0.95rem; color:var(--text-tertiary); margin-top:0.2rem;">
+                    Scan QR to download app
+                </div>
+            </div>
+            <div class="links">
+                <a class="download-link"
+                    href="https://github.com/clevermissfox/bolt-desertZen-20250620/releases/download/1.0.0/application-ca6817ab-6f8e-4687-a769-0988a25a76d7.apk"
+                    download>
+                    📱 Download APK
+                </a>
+                <a href="https://github.com/clevermissfox/bolt-desertZen-20250620" target="_blank" rel="noopener">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.084-.729.084-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.304.762-1.604-2.665-.304-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.553 3.297-1.23 3.297-1.23.653 1.653.242 2.873.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.625-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .322.218.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                    </svg>
+                    Repo
+                </a>
+            </div>
+
+            <div class="thanks grid gap-half">
+                <p class="bold">Special thanks to</p>
+                <div class="built-with">
+                    <a href="https://bolt.new" target="_blank" rel="noopener" class="row gap-quarter ai-cen bolt-link">
+                        <img src="assets/images/bolt-logo.png" alt="Bolt Logo" title="Bolt" class="bolt" /> <span
+                            class="bold">Bolt</span>
+                    </a>
+                    <span>and</span>
+
+                    <a href="https://supabase.com" target="_blank" rel="noopener">
+                        <img src="https://raw.githubusercontent.com/supabase/supabase/master/apps/www/public/images/logo-light.png"
+                            alt="Supabase Logo" title="Supabase" class="supabase" />
+                    </a>
+                    <span style="font-size:0.92em;">(supabase org: <b>tzzslprrcyjzxmbkpmem</b>)</span>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="video-container">
+
+            <iframe src="https://www.youtube.com/embed/cP2MGhUPle0?mute=1&autoplay=1" title="Desert Zen App Demo"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen style="width:100%;height:100%;"></iframe>
+        </div>
+    </div>
+    <script>
+        // Theme toggle logic
+        const themeToggle = document.getElementById('themeToggle');
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            themeToggle.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+            localStorage.setItem('theme', theme);
+        }
+        // Initial theme
+        const userPref = localStorage.getItem('theme');
+        const systemPrefDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (userPref) {
+            setTheme(userPref);
+        } else if (systemPrefDark) {
+            setTheme('dark');
+        }
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            setTheme(current);
+        });
+    </script>
+</body>
+
+</html>
